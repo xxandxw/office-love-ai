@@ -1690,80 +1690,51 @@
 
         // ===== Data: Organization Structure (小鹏汽车真实架构 2025-2026) =====
         const orgData = {
-            // Reporting lines (何小鹏/王凤英 -> 一级部门 -> 二级部门)
-            reportingLines: {
-                '通用智能中心': ['总裁办'],
-                '汽车技术中心': ['总裁办'],
-                '产品矩阵中心': ['总裁办'],
-                '动力总成中心': ['汽车技术中心'],
-                '制造工程中心': ['总裁办'],
-                '品牌营销中心': ['总裁办'],
-                '销售管理中心': ['总裁办'],
-                '国际业务中心': ['总裁办'],
-                '供应链管理中心': ['总裁办'],
-                '质量与安全中心': ['汽车技术中心'],
-                '质量运营中心': ['质量与安全中心'],
-                '人力资源中心': ['总裁办'],
-                '财务中心': ['总裁办'],
-                '法务中心': ['总裁办'],
-                '战略部': ['总裁办'],
-                '经管中心': ['总裁办'],
-                '金融业务中心': ['总裁办'],
-                'AI应用中心': ['通用智能中心'],
-                '智能计算中心': ['通用智能中心'],
-                '机器人中心': ['通用智能中心'],
-                '造型设计中心': ['产品矩阵中心'],
-                '商品企划中心': ['产品矩阵中心'],
-                '充电业务中心': ['汽车技术中心'],
-                '测试中心': ['汽车技术中心'],
-                '用户服务中心': ['销售管理中心'],
-                '德国研发中心': ['汽车技术中心'],
-                '海外制造运营中心': ['制造工程中心'],
-                '基建工程中心': ['总裁办'],
-                '行政运营中心': ['总裁办'],
-                '公共事务中心': ['总裁办'],
-                '企业投融资部': ['财务中心'],
-                '项目管理中心': ['经管中心'],
-                '公司级委员会（虚拟）': ['总裁办']
-            },
-            // Budget overlap (departments sharing budget pools)
+            // 审批监督部门：这些部门对全公司具有审批/审计/考核权
+            // 仅当双方中任意一方是P7及以上时，该检查才生效
+            auditDepts: ['财务中心', '人力资源中心', '法务中心', '经管中心', '总裁办'],
+            // 预算关联（按业务线分组）
             budgetPools: [
                 ['通用智能中心', 'AI应用中心', '智能计算中心', '机器人中心'],
-                ['汽车技术中心', '动力总成中心', '质量与安全中心', '测试中心'],
+                ['汽车技术中心', '动力总成中心', '质量与安全中心', '质量运营中心', '测试中心', '充电业务中心', '德国研发中心'],
+                ['产品矩阵中心', '造型设计中心', '商品企划中心'],
                 ['品牌营销中心', '销售管理中心', '用户服务中心', '国际业务中心'],
-                ['供应链管理中心', '制造工程中心', '海外制造运营中心'],
-                ['财务中心', '经管中心', '企业投融资部'],
-                ['产品矩阵中心', '造型设计中心', '商品企划中心']
+                ['制造工程中心', '海外制造运营中心', '供应链管理中心'],
+                ['财务中心', '经管中心', '企业投融资部', '金融业务中心'],
+                ['基建工程中心', '行政运营中心', '公共事务中心']
             ],
-            // KPI cross-assessment (departments with mutual KPI influence)
+            // KPI交叉考核（业务链上下游/交付关系）
             kpiLinks: [
-                ['汽车技术中心', '品牌营销中心'],
-                ['通用智能中心', '产品矩阵中心'],
+                ['产品矩阵中心', '汽车技术中心'],
+                ['产品矩阵中心', '通用智能中心'],
+                ['汽车技术中心', '制造工程中心'],
+                ['制造工程中心', '质量与安全中心'],
+                ['品牌营销中心', '销售管理中心'],
+                ['销售管理中心', '用户服务中心'],
                 ['供应链管理中心', '制造工程中心'],
-                ['人力资源中心', '法务中心'],
+                ['通用智能中心', '汽车技术中心'],
+                ['动力总成中心', '汽车技术中心'],
+                ['测试中心', '汽车技术中心'],
                 ['财务中心', '经管中心'],
-                ['品牌营销中心', '用户服务中心'],
-                ['质量与安全中心', '供应链管理中心'],
-                ['动力总成中心', '制造工程中心'],
-                ['国际业务中心', '供应链管理中心'],
-                ['智能计算中心', '通用智能中心'],
-                ['销售管理中心', '品牌营销中心'],
-                ['测试中心', '质量与安全中心'],
                 ['金融业务中心', '销售管理中心'],
-                ['充电业务中心', '汽车技术中心']
+                ['质量与安全中心', '供应链管理中心'],
+                ['国际业务中心', '供应链管理中心'],
+                ['充电业务中心', '用户服务中心'],
+                ['品牌营销中心', '用户服务中心']
             ],
-            // Data sensitivity (departments with shared sensitive data)
+            // 数据敏感度（共享薪资/财务/人事/战略等敏感信息的部门对）
             dataLinks: [
+                ['财务中心', '经管中心'],
                 ['财务中心', '企业投融资部'],
-                ['人力资源中心', '法务中心'],
+                ['财务中心', '金融业务中心'],
                 ['财务中心', '总裁办'],
+                ['人力资源中心', '法务中心'],
                 ['人力资源中心', '总裁办'],
-                ['企业投融资部', '总裁办'],
-                ['法务中心', '财务中心'],
-                ['经管中心', '财务中心'],
-                ['金融业务中心', '财务中心']
+                ['经管中心', '总裁办'],
+                ['战略部', '总裁办'],
+                ['企业投融资部', '总裁办']
             ],
-            // Resource competition (departments competing for same resources)
+            // 资源竞争（争预算/争人/争算力/争项目优先级）
             resourceCompetition: [
                 ['通用智能中心', '汽车技术中心'],
                 ['品牌营销中心', '销售管理中心'],
@@ -1771,17 +1742,19 @@
                 ['机器人中心', 'AI应用中心'],
                 ['汽车技术中心', '产品矩阵中心'],
                 ['智能计算中心', 'AI应用中心'],
-                ['德国研发中心', '汽车技术中心']
+                ['通用智能中心', '产品矩阵中心'],
+                ['制造工程中心', '供应链管理中心'],
+                ['销售管理中心', '国际业务中心']
             ],
             // Department descriptions
             deptDesc: {
-                '通用智能中心': '2026年由自动驾驶中心与智能座舱中心合并成立，面向汽车+机器人的AI组织，直接向何小鹏汇报',
+                '通用智能中心': '面向汽车+机器人的AI组织，涵盖自动驾驶与智能座舱',
                 '汽车技术中心': '负责整车工程、底盘、车身、内外饰等核心技术研发',
                 '产品矩阵中心': '负责车型产品定义、规划、生命周期管理与车型迭代',
                 '动力总成中心': '负责电池系统、电机、电控三电核心技术研发',
                 '制造工程中心': '负责工厂生产、制造工艺优化、产线智能化升级',
                 '品牌营销中心': '负责品牌建设、市场推广、产品传播与营销策略',
-                '销售管理中心': '王凤英主导，负责销售战略、渠道管理、定价策略与销售目标',
+                '销售管理中心': '负责销售战略、渠道管理、定价策略与销售目标',
                 '国际业务中心': '负责海外市场拓展、国际渠道建设与全球化战略落地',
                 '供应链管理中心': '负责采购策略、供应商管理与物流供应链优化',
                 '质量与安全中心': '负责整车及零部件质量标准、检验体系与质量持续改进',
@@ -1792,22 +1765,23 @@
                 '战略部': '负责战略规划、行业研究、新业务方向探索与战略落地',
                 '经管中心': '负责经营分析、管理决策支持与跨部门协同管理',
                 '金融业务中心': '负责汽车金融、融资租赁、保险等金融产品业务',
-                'AI应用中心': '负责AI技术在产品中的落地应用，隶属通用智能中心',
-                '智能计算中心': '负责算力平台、云基础设施与智能计算资源管理，隶属通用智能中心',
-                '机器人中心': '负责智能机器人的研发，隶属通用智能中心',
-                '造型设计中心': '负责整车外观与内饰造型设计，隶属产品矩阵中心',
-                '商品企划中心': '负责市场调研、竞品分析与商品企划，隶属产品矩阵中心',
+                'AI应用中心': '负责AI技术在产品中的落地应用',
+                '智能计算中心': '负责算力平台、云基础设施与智能计算资源管理',
+                '机器人中心': '负责智能机器人的研发',
+                '造型设计中心': '负责整车外观与内饰造型设计',
+                '商品企划中心': '负责市场调研、竞品分析与商品企划',
                 '充电业务中心': '负责充电网络布局、充电技术与充电服务运营',
                 '测试中心': '负责整车及系统测试验证、测试标准与测试自动化',
                 '用户服务中心': '负责售后服务、客户体验、维修网络与用户满意度管理',
-                '德国研发中心': '负责欧洲市场本地化研发与设计，隶属汽车技术中心',
-                '海外制造运营中心': '负责海外工厂生产运营，隶属制造工程中心',
+                '德国研发中心': '负责欧洲市场本地化研发与设计',
+                '海外制造运营中心': '负责海外工厂生产运营',
                 '基建工程中心': '负责办公及工厂基础设施建设与工程管理',
                 '行政运营中心': '负责行政后勤、办公环境、资产管理与运营服务',
                 '公共事务中心': '负责政府关系、公共政策、社会责任与公共事务',
-                '企业投融资部': '负责企业融资、投资管理与资本运作，隶属财务中心',
-                '项目管理中心': '负责跨部门重大项目统筹管理与推进，隶属经管中心',
-                '公司级委员会（虚拟）': '跨部门决策协调的虚拟组织，隶属总裁办'
+                '企业投融资部': '负责企业融资、投资管理与资本运作',
+                '项目管理中心': '负责跨部门重大项目统筹管理与推进',
+                '总裁办': '公司最高管理中枢，统筹战略决策与组织协调',
+                '公司级委员会（虚拟）': '跨部门决策协调的虚拟组织'
             }
         };
 
@@ -1849,33 +1823,37 @@
                 });
             }
 
-            // Check 2: Reporting Line
-            const reportA = orgData.reportingLines[deptA] || [];
-            const reportB = orgData.reportingLines[deptB] || [];
-            const directReport = reportA.includes(deptB) || reportB.includes(deptA);
-            const sameSuperior = reportA.some(d => reportB.includes(d));
+            // Check 2: Audit & Supervision (审批监督关系)
+            // 财务/HR/法务/经管/总裁办对全公司具有审批/审计/考核权
+            // 仅当双方中任意一方是P7及以上时生效（P7以下不涉及审批权限）
+            const auditA = orgData.auditDepts.includes(deptA);
+            const auditB = orgData.auditDepts.includes(deptB);
+            const hasAuditRisk = (auditA || auditB) && !sameDept;
+            const seniorEnough = lvlA >= 7 || lvlB >= 7;
 
-            if (directReport) {
+            if (hasAuditRisk && seniorEnough) {
                 result.score -= 35;
+                const auditDept = auditA ? deptA : deptB;
+                const auditPerson = auditA ? '女主角' : '男主角';
+                const otherPerson = auditA ? '男主角' : '女主角';
                 result.checks.push({
-                    name: '汇报线关系',
+                    name: '审批监督关系',
                     status: 'fail',
-                    detail: `存在直接汇报线关系！${reportA.includes(deptB) ? `「${deptB}」是「${deptA}」的上级部门。一方给另一方写 KPI，这恋爱谈得也太卑微了...` : `「${deptA}」是「${deptB}」的上级部门。同理，恋爱平权在这个设定下基本不存在。`}`,
-                    impact: 'CPU级风险'
+                    detail: `${auditPerson}来自「${auditDept}」——全公司审批/审计/考核职能部门。${auditPerson}可能审批${otherPerson}的报销单、绩效、合同或预算，恋爱后很难保证一碗水端平...`,
+                    impact: '权力制衡'
                 });
-            } else if (sameSuperior && !sameDept) {
-                result.score -= 15;
+            } else if (hasAuditRisk && !seniorEnough) {
                 result.checks.push({
-                    name: '汇报线关系',
-                    status: 'warn',
-                    detail: `两部门存在共同的上级部门，间接受同一管理层管辖。年会上你们可能会在同一个领导桌吃饭...`,
-                    impact: '轻微尴尬'
+                    name: '审批监督关系',
+                    status: 'pass',
+                    detail: `虽然有一方来自审批监督部门「${auditA ? deptA : deptB}」，但双方职级均低于P7，不涉及审批权限，暂时安全！`,
+                    impact: '安全满分'
                 });
             } else if (!sameDept) {
                 result.checks.push({
-                    name: '汇报线关系',
+                    name: '审批监督关系',
                     status: 'pass',
-                    detail: `两部门无直接或间接汇报线关系，组织架构上你们就是两条平行线——完美！`,
+                    detail: `双方均非审批监督部门，无权力制衡冲突，安心恋爱！`,
                     impact: '安全满分'
                 });
             }
@@ -2013,48 +1991,6 @@
                 });
             }
 
-            // Check 8: HR Department (人力资源中心掌握全公司八卦情报网)
-            const hrDept = '人力资源中心';
-            const oneIsHR = deptA === hrDept || deptB === hrDept;
-            if (oneIsHR && !sameDept) {
-                result.score -= 15;
-                const hrPerson = deptA === hrDept ? '女主角' : '男主角';
-                result.checks.push({
-                    name: 'HR情报网',
-                    status: 'fail',
-                    detail: `${hrPerson}来自「${hrDept}」——掌握全公司薪资、绩效、入职离职等核心数据的部门。恋爱对象在HR眼中就是一本打开的人事档案...这情报差太可怕了 &#128123;`,
-                    impact: '情报碾压'
-                });
-            } else if (!sameDept) {
-                result.checks.push({
-                    name: 'HR情报网',
-                    status: 'pass',
-                    detail: `双方均不在人力资源中心，HR八卦雷达暂时扫不到你们，安全！`,
-                    impact: '安全满分'
-                });
-            }
-
-            // Check 9: CEO Office (总裁办——全公司最高权力中心，禁止恋爱)
-            const ceoDept = '总裁办';
-            const oneIsCEO = deptA === ceoDept || deptB === ceoDept;
-            if (oneIsCEO && !sameDept) {
-                result.score -= 40;
-                const ceoPerson = deptA === ceoDept ? '女主角' : '男主角';
-                const otherPerson = deptA === ceoDept ? '男主角' : '女主角';
-                result.checks.push({
-                    name: '总裁办禁区',
-                    status: 'fail',
-                    detail: `${ceoPerson}来自「${ceoDept}」——全公司最高权力中心，掌握战略决策、人事任免、资源分配。${ceoPerson}和${otherPerson}谈恋爱？这不是恋爱，这是"高危作业" &#128680; 总裁办的人谈恋爱，全公司都会变成你们的吃瓜群众...`,
-                    impact: '红线警告'
-                });
-            } else if (!sameDept) {
-                result.checks.push({
-                    name: '总裁办禁区',
-                    status: 'pass',
-                    detail: `双方均不在总裁办，远离权力漩涡中心，安心恋爱！`,
-                    impact: '安全满分'
-                });
-            }
 
             // Clamp score
             result.score = Math.max(0, Math.min(100, result.score));
@@ -2064,11 +2000,10 @@
             let warnCount = result.checks.filter(function(c) { return c.status === 'warn'; }).length;
 
             // Determine level based on real corporate conflict-of-interest logic:
-            // RED: direct reporting line + any other fail, or same dept + direct report, or 2+ fail checks
-            //      (these mean real power imbalance / budget control / data sensitivity conflict)
-            // YELLOW: 1 fail only (not direct report), or 2+ warns (manageable conflicts)
+            // RED: 2+ fail checks, or 1 fail + 2+ warns (multiple overlapping conflicts)
+            // YELLOW: 1 fail only, or 2+ warns (manageable conflicts)
             // GREEN: 0 fails, 0-1 warns (no substantive conflicts)
-            if (failCount >= 2 || (directReport && sameDept) || (failCount >= 1 && warnCount >= 2)) {
+            if (failCount >= 2 || (failCount >= 1 && warnCount >= 2)) {
                 result.level = 'red';
             } else if (failCount === 1 || warnCount >= 3) {
                 result.level = 'yellow';
@@ -2079,16 +2014,16 @@
             }
 
             // Generate advice
-            generateAdvice(result, deptA, deptB, levelA, levelB, sameDept, directReport, levelGap);
+            generateAdvice(result, deptA, deptB, levelA, levelB, sameDept, levelGap);
 
             return result;
         }
 
         // ===== Generate Advice =====
-        function generateAdvice(result, deptA, deptB, levelA, levelB, sameDept, directReport, levelGap) {
+        function generateAdvice(result, deptA, deptB, levelA, levelB, sameDept, levelGap) {
             if (result.level === 'green') {
                 result.advice = [
-                    '老天爷都盖章认证的安全 CP！你们在组织架构、预算、考核等 9 个维度全绿通过。',
+                    '老天爷都盖章认证的安全 CP！你们在部门归属、审批监督、预算、考核等 7 个维度全绿通过。',
                     `「${deptA}」和「${deptB}」就像岑村里两个独立号楼——各自精彩，但你们偏偏跨越了T1到T4的距离相遇了 &#128141;`,
                     '不用偷偷摸摸，不用欲盖弥彰，你们就是办公室爱情的最佳范本。',
                     '连 HR 看了都会说：这两位真的很般配。'
