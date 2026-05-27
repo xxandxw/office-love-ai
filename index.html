@@ -199,71 +199,29 @@
         }
 
         .hero h1 {
-            font-size: clamp(42px, 7vw, 80px);
-            font-weight: 900;
-            line-height: 1.05;
-            margin-bottom: 8px;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #fff 0%, #ff4d6d 30%, #c084fc 60%, #38bdf8 100%);
-            background-size: 200% 200%;
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #ff4d6d 50%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         .hero .subtitle {
-            font-size: clamp(16px, 2.2vw, 20px);
-            color: rgba(255,255,255,0.5);
-            max-width: 520px;
-            margin-bottom: 12px;
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 20px;
             font-weight: 300;
-            line-height: 1.7;
         }
 
         .hero .tagline {
-            font-size: 16px;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 44px;
+            font-size: 15px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 50px;
             font-style: italic;
-        }
-
-        /* Hero stats bar */
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 48px;
-            padding: 20px 36px;
-            border-radius: 16px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat .stat-num {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ff4d6d, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero-stat .stat-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            letter-spacing: 0.5px;
         }
 
         .hero-stat .stat-divider {
@@ -340,50 +298,50 @@
             gap: 16px;
             max-width: 960px;
             margin: 0 auto;
-            padding: 0 20px 80px;
+            padding: 0 20px 60px;
+        }
+
+        .author-section {
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px 80px;
+        }
+
+        .author-img {
+            max-width: 500px;
+            width: 90%;
+            border-radius: 16px;
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .author-img:hover {
+            opacity: 1;
         }
 
         .feature-card {
-            padding: 32px 28px;
+            padding: 28px;
             border-radius: var(--radius);
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s;
             cursor: default;
-            position: relative;
-            overflow: hidden;
         }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            border-radius: 3px 3px 0 0;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .feature-card:hover::before { opacity: 1; }
-        .feature-card:nth-child(1)::before { background: linear-gradient(90deg, #34d399, #38bdf8); }
-        .feature-card:nth-child(2)::before { background: linear-gradient(90deg, #fbbf24, #fb923c); }
-        .feature-card:nth-child(3)::before { background: linear-gradient(90deg, #f87171, #ff4d6d); }
 
         .feature-card:hover {
             background: var(--bg-card-hover);
-            transform: translateY(-6px);
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+            border-color: var(--accent-purple);
         }
 
         .feature-card .icon {
-            width: 52px; height: 52px;
-            border-radius: 14px;
+            width: 48px; height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 18px;
         }
 
@@ -1267,23 +1225,9 @@
                 <span class="dot"></span>
                 AI 职场恋爱合规检测系统 · 岑村版
             </div>
-            <h1>办公室的你们<br>可以AI吗？</h1>
+            <h1>办公室的你俩<br>能爱吗？AI了再说！</h1>
             <p class="subtitle">办公室恋爱，不设围墙，只设导航。<br>让AI当一回职场月老，也当一次风险侦探。</p>
-            <p class="tagline">"恋爱就像开GX——胆子要大，但雷达要全开"</p>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="stat-num">9</div>
-                    <div class="stat-label">检测维度</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="stat-num">4</div>
-                    <div class="stat-label">情侣类型</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="stat-num">1%</div>
-                    <div class="stat-label">恋爱存活率</div>
-                </div>
-            </div>
+            <p class="tagline">"爱情不可耻，盲目才危险"</p>
             <button class="btn-primary" id="heroStartBtn">
                 <span class="btn-text">&#128269; 开始AI检测</span>
             </button>
@@ -1291,20 +1235,25 @@
 
         <div class="features">
             <div class="feature-card">
-                <div class="icon icon-green">&#127919;</div>
-                <h3>九维深度扫描</h3>
-                <p>部门归属、汇报线、职级差、预算池、KPI交叉、信息敏感度、资源竞争、HR情报网、总裁办禁区——XNGP级别的精准探测。</p>
+                <div class="icon icon-green">&#9989;</div>
+                <h3>&#x1F7E2; 绿灯通行</h3>
+                <p>没有利益交叉？放心去爱！公司还给你发喜糖。</p>
             </div>
             <div class="feature-card">
-                <div class="icon icon-yellow">&#128172;</div>
-                <h3>AI 吐槽 + 生存指南</h3>
-                <p>不给你冷冰冰的分数，还有犀利的AI吐槽和JPG咖啡、科韵公园等岑村周边约会避嫌方案。</p>
+                <div class="icon icon-yellow">&#9888;&#65039;</div>
+                <h3>&#x1F7E1; 黄灯提醒</h3>
+                <p>业务有触碰？AI给出"相处建议"与"避嫌方案"。</p>
             </div>
             <div class="feature-card">
-                <div class="icon icon-red">&#128640;</div>
-                <h3>一键出图，分享好友</h3>
-                <p>检测结果一键保存为精美图片，发飞书群、发朋友圈，让同事也来测一测谁才是高危关系户。</p>
+                <div class="icon icon-red">&#128308;</div>
+                <h3>&#x1F534; 红灯劝退</h3>
+                <p>直接管预算或考核？AI温柔劝退，建议调岗路径。</p>
             </div>
+        </div>
+
+        <!-- Author Info -->
+        <div class="author-section">
+            <img class="author-img" id="authorImg" src="author.jpg" alt="作者信息">
         </div>
     </div>
 
