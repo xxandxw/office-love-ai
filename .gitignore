@@ -1,0 +1,14 @@
+# Feishu config (contains App Secret - DO NOT publish)
+config.json
+scripts/
+
+# Node.js server (requires backend, not for GitHub Pages)
+server.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
