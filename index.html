@@ -2059,17 +2059,23 @@
             // Clamp score
             result.score = Math.max(0, Math.min(100, result.score));
 
-            // Determine level (5 tiers like MBTI)
-            if (result.score >= 90) {
-                result.level = 'green';
-            } else if (result.score >= 75) {
-                result.level = 'green';
-            } else if (result.score >= 55) {
-                result.level = 'yellow';
-            } else if (result.score >= 30) {
-                result.level = 'orange';
-            } else {
+            // Count risk factors for level determination
+            let failCount = result.checks.filter(function(c) { return c.status === 'fail'; }).length;
+            let warnCount = result.checks.filter(function(c) { return c.status === 'warn'; }).length;
+
+            // Determine level based on real corporate conflict-of-interest logic:
+            // RED: direct reporting line + any other fail, or same dept + direct report, or 2+ fail checks
+            //      (these mean real power imbalance / budget control / data sensitivity conflict)
+            // YELLOW: 1 fail only (not direct report), or 2+ warns (manageable conflicts)
+            // GREEN: 0 fails, 0-1 warns (no substantive conflicts)
+            if (failCount >= 2 || (directReport && sameDept) || (failCount >= 1 && warnCount >= 2)) {
                 result.level = 'red';
+            } else if (failCount === 1 || warnCount >= 3) {
+                result.level = 'yellow';
+            } else if (warnCount >= 1) {
+                result.level = 'yellow';
+            } else {
+                result.level = 'green';
             }
 
             // Generate advice
@@ -2097,37 +2103,21 @@
                 ];
             } else if (result.level === 'yellow') {
                 result.advice = [
-                    '你们之间有轻微的职场关联，就像奶茶加了少糖——甜度刚刚好，还带了点刺激。',
+                    '你们之间存在可管理的职场利益关联，不是不能在一起，而是需要更有智慧地在一起。',
                     'AI 给你们打的是"甜蜜冒险家"标签，不是让你们分开，而是让你们更聪明地在一起。',
-                    '保持公私分明的边界感，反而会让你们的感情更珍贵。',
-                    '毕竟，有点挑战的爱情故事，回忆起来才更浪漫 &#127800;'
+                    '保持公私分明的边界感，反而会让你们的感情更珍贵。毕竟，有点挑战的爱情故事，回忆起来才更浪漫 &#127800;'
                 ];
                 result.suggestions = [
                     '在跨部门合作时，把"宝贝"和"同事"的身份切换好 &#128521;',
                     '涉及共同业务决策时，主动申请利益冲突回避——这是保护你们的铠甲',
                     '别在会议室眉目传情，X9的摄像头都比你们想象的更智能 &#128249;',
                     '定期和直属上级沟通，保持透明度，让领导成为你们的"爱情见证人"',
-                    '准备好一本"公私分明白皮书"，在需要的时候翻出来',
-                    '约会时把工牌藏好，别在岑村松岗大街8号被同事撞见 &#129323;'
+                    '约会时把工牌藏好，别在岑村松岗大街8号被同事撞见 &#129323;',
+                    '推荐办公区约会地点：JPG咖啡（远离T2）、科韵公园、村口KFC'
                 ];
                 if (sameDept) {
                     result.suggestions.unshift('同部门恋爱的高级操作：其中一方主动申请转组或调岗，展示你们的诚意 &#128077;');
                 }
-            } else if (result.level === 'orange') {
-                result.advice = [
-                    '恭喜你们被 AI 评为"走钢丝恋人"——你们的关系就像一场精彩的平衡表演。',
-                    '说实话，你们之间的利益交叉已经不是"擦边"了，而是"网状结构"。',
-                    'AI 不是劝分，而是建议你们先画好安全网再谈恋爱。先保住饭碗，才能养得起对象 &#128176;',
-                    '真爱需要勇气，但也需要策略。聪明的人知道什么时候该进，什么时候该等——就像何小鹏说的，"技术要让出行更美好"，爱情也要让生活更美好。'
-                ];
-                result.suggestions = [
-                    '强烈建议其中一方调岗到无利益关联的部门——这是最稳妥的解决方案',
-                    '调岗前先保持纯友谊关系，"友达以上，恋人未满"其实很浪漫 &#128522;',
-                    '立刻向 HR 报备（可选），至少让公司知道你们是主动透明的',
-                    '避免任何可能的利益输送嫌疑：报销、审批、考核全部走第三方',
-                    '如果有人问起你们的关系，统一口径："我们只是工作关系很好的同事"（眨眼）',
-                    '周末约去科韵路转转，远离园区总没错 &#127968;'
-                ];
             } else {
                 result.advice = [
                     'AI 不得不亮起红牌了。你们之间的利益冲突密度堪比公司组织架构图。',
@@ -2262,26 +2252,26 @@
                 yellow: {
                     emoji: '&#127800;',
                     status: '甜蜜冒险家',
-                    subtitle: '小刺激更心动',
-                    desc: '你们之间有微妙的职场联系，像是MONA M03——价格亲民但惊喜不断。注意保持公私分明的防火墙，这份"危险关系"反而能让感情像X9一样升温！',
+                    subtitle: '有利益关联，需谨慎',
+                    desc: '你们之间存在可管理的职场利益关联（如同一上级、KPI交叉、共享预算池等）。不禁止，但建议：涉及共同业务决策时主动申请利益冲突回避，审批、报销、考核走第三方。这是保护你们的铠甲，也是职业素养。',
                     scoreColor: 'var(--yellow)',
-                    tagline: '爱情浓度: HIGH | 合规风险: 轻微 | 甜度: 比薄荷糖清爽'
+                    tagline: '合规风险: 轻微 | 建议: 建立公私防火墙'
                 },
                 orange: {
                     emoji: '&#127793;',
                     status: '走钢丝恋人',
-                    subtitle: '心跳加速型选手',
-                    desc: '你们的爱情像在办公室走钢丝——精彩但需要平衡术。AI 建议你们建立明确的"公私边界协议"，在项目合作中保持专业，在下班后尽情撒糖。走得好就是爱情佳话，走歪了就是HR茶水间的新八卦...',
+                    subtitle: '利益交织较深，风险偏高',
+                    desc: '你们的爱情像在办公室走钢丝——精彩但需要平衡术。多个维度存在利益关联，建议：定期向HR报备关系状态，所有涉及利益的操作（审批/考核/预算）严格回避。走得好就是爱情佳话，走歪了就是HR茶水间的新八卦...',
                     scoreColor: '#ff8c42',
-                    tagline: '爱情浓度: MEDIUM | 合规风险: 中等偏高 | 甜度: G6式过山车'
+                    tagline: '合规风险: 中等偏高 | 建议: 主动报备+严格回避'
                 },
                 red: {
                     emoji: '&#128163;',
-                    status: '高危关系户',
+                    status: '利益红线警告',
                     subtitle: '建议先保住饭碗',
-                    desc: '你们之间的利益交叉密度堪比蜘蛛网。AI 不是在泼冷水，而是在保护你们的年终奖！强烈建议先处理好职场关系再谈感情——毕竟，失业了连GX的定金都交不起。',
+                    desc: '你们之间存在实质性利益冲突（上下级关系/预算审批/敏感数据），这已经不是"要不要在一起"的问题了，而是"在一起之后怎么证明没有利益输送"的问题。AI 不是在泼冷水，而是在保护你们的年终奖！强烈建议先处理好职场关系再谈感情——毕竟，失业了连GX的定金都交不起。',
                     scoreColor: 'var(--red)',
-                    tagline: '爱情浓度: ? | 合规风险: 爆表 | 甜度: 可能是苦的'
+                    tagline: '合规风险: 爆表 | 建议行动: 先调岗再恋爱'
                 }
             };
 
