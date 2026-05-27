@@ -301,22 +301,87 @@
             padding: 0 20px 60px;
         }
 
+        /* ===== Author Section ===== */
         .author-section {
             display: flex;
             justify-content: center;
             padding: 20px 20px 80px;
         }
 
-        .author-img {
-            max-width: 500px;
-            width: 90%;
-            border-radius: 16px;
-            opacity: 0.85;
-            transition: opacity 0.3s;
+        .author-card {
+            max-width: 520px;
+            width: 100%;
+            background: linear-gradient(145deg, #0d0d0d 0%, #1a0a2e 50%, #0d0d0d 100%);
+            border: 1px solid rgba(255,77,109,0.2);
+            border-radius: 20px;
+            padding: 40px 36px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-
-        .author-img:hover {
-            opacity: 1;
+        .author-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255,77,109,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(192,132,252,0.06) 0%, transparent 50%);
+            animation: authorBgFloat 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes authorBgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(10px, -10px) rotate(1deg); }
+            66% { transform: translate(-10px, 10px) rotate(-1deg); }
+        }
+        .author-couple-svg {
+            width: 120px;
+            height: 80px;
+            margin: 0 auto 18px;
+            display: block;
+        }
+        .author-quote {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff8a9e 40%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .author-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,77,109,0.4), transparent);
+            margin: 0 auto 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .author-signature {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 1;
+        }
+        .author-signature .highlight {
+            background: linear-gradient(135deg, #ff4d6d, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .author-hearts {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.3;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card {
@@ -1253,7 +1318,23 @@
 
         <!-- Author Info -->
         <div class="author-section">
-            <img class="author-img" id="authorImg" src="author.jpg" alt="作者信息">
+            <div class="author-card">
+                <svg class="author-couple-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                    <!-- couple silhouette -->
+                    <circle cx="38" cy="28" r="10" fill="#ff4d6d" opacity="0.9"/>
+                    <path d="M28 40 Q38 36 48 40 Q52 55 48 68 L42 68 Q44 55 38 50 Q32 55 34 68 L28 68 Q24 55 28 40Z" fill="#ff4d6d" opacity="0.9"/>
+                    <circle cx="82" cy="28" r="10" fill="#c084fc" opacity="0.9"/>
+                    <path d="M72 40 Q82 36 92 40 Q96 55 92 68 L86 68 Q88 55 82 50 Q76 55 78 68 L72 68 Q68 55 72 40Z" fill="#c084fc" opacity="0.9"/>
+                    <!-- heart between them -->
+                    <path d="M55 38 Q60 30 65 38 Q70 30 75 38 Q65 52 65 52 Q55 52 55 38Z" fill="#ff8a9e" opacity="0.8">
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+                    </path>
+                </svg>
+                <div class="author-quote">祝岑村有情人终成眷属</div>
+                <div class="author-divider"></div>
+                <div class="author-signature">作者：<span class="highlight">小新 & 小惟</span></div>
+                <div class="author-hearts">♥ ♥ ♥</div>
+            </div>
         </div>
     </div>
 
