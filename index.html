@@ -441,7 +441,7 @@
             letter-spacing: 0.5px;
         }
 
-        .form-input, .form-select {
+        .form-input {
             width: 100%;
             padding: 14px 18px;
             border-radius: var(--radius-sm);
@@ -454,6 +454,19 @@
             outline: none;
             appearance: none;
             -webkit-appearance: none;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--glass-border);
+            background: #16213e;
+            color: #fff;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+            outline: none;
         }
 
         /* 姓名搜索下拉 */
@@ -529,23 +542,13 @@
         .search-status-dot.connected { background: var(--green); }
         .search-status-dot.disconnected { background: var(--red); }
 
-        .form-select {
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ffffffcc' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            padding-right: 40px;
-            color: var(--text-primary);
-        }
-
-        .form-select option {
-            color: #ffffff;
-            background: #1a1a2e;
-        }
-
         .form-input:focus, .form-select:focus {
             border-color: var(--accent-purple);
             box-shadow: 0 0 0 3px rgba(192,132,252,0.15);
+        }
+
+        .form-select {
+            cursor: pointer;
         }
 
         .form-input::placeholder {
@@ -1262,27 +1265,23 @@
         <div class="hero">
             <div class="hero-badge">
                 <span class="dot"></span>
-                AI 职场恋爱合规检测系统
+                AI 职场恋爱合规检测系统 · 岑村版
             </div>
             <h1>办公室的你们<br>可以AI吗？</h1>
             <p class="subtitle">办公室恋爱，不设围墙，只设导航。<br>让AI当一回职场月老，也当一次风险侦探。</p>
-            <p class="tagline">"爱情不可耻，盲目才危险"</p>
+            <p class="tagline">"恋爱就像开GX——胆子要大，但雷达要全开"</p>
             <div class="hero-stats">
                 <div class="hero-stat">
                     <div class="stat-num">9</div>
                     <div class="stat-label">检测维度</div>
                 </div>
                 <div class="hero-stat">
-                    <div class="stat-num">100</div>
-                    <div class="stat-label">满分评分</div>
-                </div>
-                <div class="hero-stat">
                     <div class="stat-num">4</div>
                     <div class="stat-label">情侣类型</div>
                 </div>
                 <div class="hero-stat">
-                    <div class="stat-num">34</div>
-                    <div class="stat-label">真实部门</div>
+                    <div class="stat-num">1%</div>
+                    <div class="stat-label">恋爱存活率</div>
                 </div>
             </div>
             <button class="btn-primary" id="heroStartBtn">
@@ -1293,18 +1292,18 @@
         <div class="features">
             <div class="feature-card">
                 <div class="icon icon-green">&#127919;</div>
-                <h3>七维深度扫描</h3>
-                <p>部门归属、汇报线、职级差、预算池、KPI交叉、信息敏感度、资源竞争——一个都不放过。</p>
+                <h3>九维深度扫描</h3>
+                <p>部门归属、汇报线、职级差、预算池、KPI交叉、信息敏感度、资源竞争、HR情报网、总裁办禁区——XNGP级别的精准探测。</p>
             </div>
             <div class="feature-card">
                 <div class="icon icon-yellow">&#128172;</div>
                 <h3>AI 吐槽 + 生存指南</h3>
-                <p>不给你冷冰冰的分数，还有犀利的AI吐槽和可操作的恋爱避嫌方案。</p>
+                <p>不给你冷冰冰的分数，还有犀利的AI吐槽和JPG咖啡、科韵公园等岑村周边约会避嫌方案。</p>
             </div>
             <div class="feature-card">
                 <div class="icon icon-red">&#128640;</div>
                 <h3>一键出图，分享好友</h3>
-                <p>检测结果一键保存为精美图片，发朋友圈、发群里，让朋友也来测一测。</p>
+                <p>检测结果一键保存为精美图片，发飞书群、发朋友圈，让同事也来测一测谁才是高危关系户。</p>
             </div>
         </div>
     </div>
@@ -1314,7 +1313,7 @@
         <div class="detect-container">
             <div class="detect-header">
                 <h2>&#128269; AI恋爱合规检测</h2>
-                <p>输入双方信息，AI为你智能分析职场恋爱风险</p>
+                <p>输入双方信息，AI为你分析鹏厂恋爱合规风险</p>
             </div>
 
             <form id="detectForm" onsubmit="return false;">
@@ -1322,10 +1321,7 @@
                 <div class="form-section">
                     <div class="form-label">&#128105;&#8205;&#128187; 女主角 &#128149;</div>
                     <div class="form-row">
-                        <div class="search-wrapper">
-                            <input class="form-input" id="nameA" placeholder="输入姓名搜索飞书通讯录" required autocomplete="off">
-                            <div class="search-dropdown" id="dropdownA"></div>
-                        </div>
+                        <input class="form-input" id="nameA" placeholder="输入姓名" required autocomplete="off">
                         <select class="form-select" id="deptA" required>
                             <option value="">选择部门</option>
                         </select>
@@ -1350,10 +1346,7 @@
                 <div class="form-section">
                     <div class="form-label">&#128104;&#8205;&#128187; 男主角 &#128150;</div>
                     <div class="form-row">
-                        <div class="search-wrapper">
-                            <input class="form-input" id="nameB" placeholder="输入姓名搜索飞书通讯录" required autocomplete="off">
-                            <div class="search-dropdown" id="dropdownB"></div>
-                        </div>
+                        <input class="form-input" id="nameB" placeholder="输入姓名" required autocomplete="off">
                         <select class="form-select" id="deptB" required>
                             <option value="">选择部门</option>
                         </select>
@@ -1385,7 +1378,7 @@
     <div class="page" id="page-promo">
         <div class="promo">
             <h2>办公室恋爱<br>从"禁果"到"选择题"</h2>
-            <p class="promo-sub">用AI扫清隐患，让每一段感情都经得起考验</p>
+            <p class="promo-sub">AI九维扫雷，让岑村的爱情经得起考验</p>
 
             <div class="problem-solution">
                 <div class="problem-card">
@@ -1443,7 +1436,7 @@
 
         <div class="footer">
             <p class="footer-slogan">"用AI扫清隐患，让爱情不再是偷偷摸摸的禁果"</p>
-            <p>Office Love AI &copy; 2026 | AI大赛参赛作品</p>
+            <p>Office Love AI &copy; 2026 | 小鹏汽车内部AI大赛参赛作品</p>
         </div>
     </div>
 
@@ -1474,13 +1467,7 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ===== Feishu Integration =====
-        var FEISHU_API = 'http://localhost:3000';
-        var feishuConnected = false;
-        var feishuDeptMap = {};   // department_id -> department_name
-        var searchTimers = {};    // debounce timers
-
-        // Fallback data for when Feishu is unavailable (小鹏汽车真实架构 2025-2026)
+        // ===== Department & Level Data (小鹏汽车真实架构 2025-2026) =====
         var fallbackDepartments = [
             '基建工程中心','行政运营中心','经管中心','商品企划中心','造型设计中心',
             '汽车技术中心','动力总成中心','企业投融资部','项目管理中心','充电业务中心',
@@ -1515,161 +1502,6 @@
                 populateSelect(levelSelects[i], fallbackLevels, '选择职级');
             }
         }
-
-        // Check Feishu server status
-        function checkFeishuStatus() {
-            fetch(FEISHU_API + '/api/status', { method: 'GET' })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.feishu_connected && data.department_permission) {
-                        feishuConnected = true;
-                        console.log('[INFO] 飞书通讯录已连接');
-                        loadFeishuDepartments();
-                    } else {
-                        feishuConnected = false;
-                        console.log('[INFO] 飞书通讯录未连接，使用模拟数据。原因:', data.department_error || '未知');
-                    }
-                })
-                .catch(function(err) {
-                    feishuConnected = false;
-                    console.log('[INFO] 飞书代理服务未启动，使用模拟数据。请运行: node server.js');
-                });
-        }
-
-        // Load real departments from Feishu
-        function loadFeishuDepartments() {
-            fetch(FEISHU_API + '/api/departments', { method: 'GET' })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.success && data.departments && data.departments.length > 0) {
-                        feishuDeptMap = {};
-                        var deptNames = [];
-                        var seenNames = {};
-                        for (var i = 0; i < data.departments.length; i++) {
-                            var d = data.departments[i];
-                            feishuDeptMap[d.department_id] = d.name;
-                            if (!seenNames[d.name]) {
-                                seenNames[d.name] = true;
-                                deptNames.push(d.name);
-                            }
-                        }
-                        deptNames.sort(function(a, b) { return a.localeCompare(b, 'zh-CN'); });
-
-                        var deptSelects = [document.getElementById('deptA'), document.getElementById('deptB')];
-                        for (var i = 0; i < deptSelects.length; i++) {
-                            populateSelect(deptSelects[i], deptNames, '选择部门');
-                        }
-                        console.log('[INFO] 已加载 ' + deptNames.length + ' 个飞书部门');
-                    }
-                })
-                .catch(function(err) {
-                    console.log('[WARN] 加载飞书部门失败，使用模拟数据:', err);
-                });
-        }
-
-        // Search user by name (debounced)
-        function onNameInput(personId, query) {
-            var dropdown = document.getElementById('dropdown' + personId);
-            if (!query || query.length < 1) {
-                dropdown.classList.remove('show');
-                dropdown.innerHTML = '';
-                return;
-            }
-
-            clearTimeout(searchTimers[personId]);
-            searchTimers[personId] = setTimeout(function() {
-                searchFeishuUser(personId, query);
-            }, 300);
-        }
-
-        // Call Feishu search API
-        function searchFeishuUser(personId, query) {
-            var dropdown = document.getElementById('dropdown' + personId);
-
-            if (!feishuConnected) {
-                dropdown.innerHTML = '<div class="search-dropdown-empty"><span class="search-status-dot disconnected"></span>飞书未连接（运行 node server.js 启动），请手动选择部门和职级</div>';
-                dropdown.classList.add('show');
-                return;
-            }
-
-            dropdown.innerHTML = '<div class="search-dropdown-empty">搜索中...</div>';
-            dropdown.classList.add('show');
-
-            fetch(FEISHU_API + '/api/search?q=' + encodeURIComponent(query), { method: 'GET' })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (!data.success) {
-                        if (data.code === 99991668 || data.code === 99991663) {
-                            dropdown.innerHTML = '<div class="search-dropdown-empty"><span class="search-status-dot disconnected"></span>通讯录权限未开通，请手动选择部门和职级</div>';
-                        } else {
-                            dropdown.innerHTML = '<div class="search-dropdown-empty">搜索出错: ' + (data.error || '未知') + '</div>';
-                        }
-                        return;
-                    }
-
-                    var users = data.users || [];
-                    if (users.length === 0) {
-                        dropdown.innerHTML = '<div class="search-dropdown-empty">未找到匹配的同事</div>';
-                        return;
-                    }
-
-                    var html = '';
-                    for (var i = 0; i < users.length; i++) {
-                        var u = users[i];
-                        var deptNames = [];
-                        for (var j = 0; j < u.department_ids.length; j++) {
-                            var dName = feishuDeptMap[u.department_ids[j]];
-                            if (dName) deptNames.push(dName);
-                        }
-                        var deptStr = deptNames.length > 0 ? deptNames.join('、') : '未知部门';
-                        html += '<div class="search-dropdown-item" data-user-id="' + (u.user_id || '') + '" data-name="' + u.name + '" data-dept="' + deptStr + '" data-person="' + personId + '">';
-                        html += '<div class="sdi-name">' + u.name + '</div>';
-                        html += '<div class="sdi-dept">' + deptStr + '</div>';
-                        html += '</div>';
-                    }
-                    dropdown.innerHTML = html;
-
-                    dropdown.querySelectorAll('.search-dropdown-item').forEach(function(item) {
-                        item.addEventListener('click', function() {
-                            selectSearchResult(this);
-                        });
-                    });
-                })
-                .catch(function(err) {
-                    dropdown.innerHTML = '<div class="search-dropdown-empty">搜索失败，请检查网络</div>';
-                });
-        }
-
-        // When user clicks a search result
-        function selectSearchResult(itemEl) {
-            var personId = itemEl.getAttribute('data-person');
-            var name = itemEl.getAttribute('data-name');
-            var deptStr = itemEl.getAttribute('data-dept');
-
-            document.getElementById('name' + personId).value = name;
-
-            var deptSelect = document.getElementById('dept' + personId);
-            var firstDept = deptStr.split('、')[0];
-            for (var i = 0; i < deptSelect.options.length; i++) {
-                if (deptSelect.options[i].value === firstDept || deptSelect.options[i].text === firstDept) {
-                    deptSelect.selectedIndex = i;
-                    break;
-                }
-            }
-
-            var dropdown = document.getElementById('dropdown' + personId);
-            dropdown.classList.remove('show');
-            dropdown.innerHTML = '';
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-wrapper')) {
-                document.querySelectorAll('.search-dropdown').forEach(function(dd) {
-                    dd.classList.remove('show');
-                });
-            }
-        });
 
         // ===== Data: Organization Structure (小鹏汽车真实架构 2025-2026) =====
         const orgData = {
@@ -1827,7 +1659,7 @@
                 result.checks.push({
                     name: '部门归属',
                     status: 'pass',
-                    detail: `女主角「${deptA}」，男主角「${deptB}」，分属不同部门，距离产生美！`,
+                    detail: `女主角「${deptA}」，男主角「${deptB}」，分属不同部门，距离产生美！跨楼层恋爱最安全。`,
                     impact: '安全满分'
                 });
             }
@@ -2065,17 +1897,18 @@
         function generateAdvice(result, deptA, deptB, levelA, levelB, sameDept, directReport, levelGap) {
             if (result.level === 'green') {
                 result.advice = [
-                    '老天爷都盖章认证的安全 CP！你们在组织架构、预算、考核等 7 个维度全绿通过。',
-                    `「${deptA}」和「${deptB}」就像公司里的两个平行宇宙——各自精彩，互不干扰，但你们偏偏跨越了光年相遇了 &#128141;`,
+                    '老天爷都盖章认证的安全 CP！你们在组织架构、预算、考核等 9 个维度全绿通过。',
+                    `「${deptA}」和「${deptB}」就像岑村里两个独立号楼——各自精彩，但你们偏偏跨越了T1到T4的距离相遇了 &#128141;`,
                     '不用偷偷摸摸，不用欲盖弥彰，你们就是办公室爱情的最佳范本。',
                     '连 HR 看了都会说：这两位真的很般配。'
                 ];
                 result.suggestions = [
                     '别犹豫了，大胆公开吧！你们的恋情经得起全公司的目光 &#127881;',
-                    '公开前先请双方部门同事喝奶茶，建立好感',
+                    '公开前先请双方部门同事喝奶茶，建立好感（村口KFC的咖啡也不错）',
                     '日常撒糖注意频率，单身同事可能会投来羡慕嫉妒恨的眼神 &#128527;',
                     '记得把喜糖的预算提前写进你们的恋爱计划书里 &#127852;',
-                    '推荐办公区约会地点：JPG咖啡（远离T2）、科韵公园、村口KFC'
+                    '推荐办公区约会地点：JPG咖啡（远离T2）、科韵公园、村口KFC',
+                    '如果G9车机需要更新，趁机一起开车兜风也是不错的选择 &#128663;'
                 ];
             } else if (result.level === 'yellow') {
                 result.advice = [
@@ -2087,9 +1920,10 @@
                 result.suggestions = [
                     '在跨部门合作时，把"宝贝"和"同事"的身份切换好 &#128521;',
                     '涉及共同业务决策时，主动申请利益冲突回避——这是保护你们的铠甲',
-                    '别在会议室眉目传情，监控摄像头比你们想象的更智能 &#128249;',
+                    '别在会议室眉目传情，X9的摄像头都比你们想象的更智能 &#128249;',
                     '定期和直属上级沟通，保持透明度，让领导成为你们的"爱情见证人"',
-                    '准备好一本"公私分明白皮书"，在需要的时候翻出来'
+                    '准备好一本"公私分明白皮书"，在需要的时候翻出来',
+                    '约会时把工牌藏好，别在岑村松岗大街8号被同事撞见 &#129323;'
                 ];
                 if (sameDept) {
                     result.suggestions.unshift('同部门恋爱的高级操作：其中一方主动申请转组或调岗，展示你们的诚意 &#128077;');
@@ -2099,14 +1933,15 @@
                     '恭喜你们被 AI 评为"走钢丝恋人"——你们的关系就像一场精彩的平衡表演。',
                     '说实话，你们之间的利益交叉已经不是"擦边"了，而是"网状结构"。',
                     'AI 不是劝分，而是建议你们先画好安全网再谈恋爱。先保住饭碗，才能养得起对象 &#128176;',
-                    '真爱需要勇气，但也需要策略。聪明的人知道什么时候该进，什么时候该等。'
+                    '真爱需要勇气，但也需要策略。聪明的人知道什么时候该进，什么时候该等——就像何小鹏说的，"技术要让出行更美好"，爱情也要让生活更美好。'
                 ];
                 result.suggestions = [
                     '强烈建议其中一方调岗到无利益关联的部门——这是最稳妥的解决方案',
                     '调岗前先保持纯友谊关系，"友达以上，恋人未满"其实很浪漫 &#128522;',
                     '立刻向 HR 报备（可选），至少让公司知道你们是主动透明的',
                     '避免任何可能的利益输送嫌疑：报销、审批、考核全部走第三方',
-                    '如果有人问起你们的关系，统一口径："我们只是工作关系很好的同事"（眨眼）'
+                    '如果有人问起你们的关系，统一口径："我们只是工作关系很好的同事"（眨眼）',
+                    '周末约去科韵路转转，远离园区总没错 &#127968;'
                 ];
             } else {
                 result.advice = [
@@ -2121,7 +1956,8 @@
                     '如已在一起 → 立即向 HR 报告，主动申请利益冲突回避',
                     '咨询公司法务/HR部门，了解公司的利益冲突政策细节',
                     '如果觉得调岗太难...也许你们需要重新评估一下：是爱情更重要，还是这个岗位更重要 &#129300;',
-                    '最后一句忠告：千万别在审批对方的报销单上签"同意" &#128517;'
+                    '最后一句忠告：千万别在审批对方的报销单上签"同意" &#128517;',
+                    '冷静期建议：先去试驾一下GX，感受一下"AI新豪华"，说不定就清醒了 &#128663;'
                 ];
             }
         }
@@ -2195,8 +2031,8 @@
                 `已加载 ${nameA}(${deptA}) 的组织节点`,
                 `正在比对 ${deptA} 与 ${deptB} 的关联链路...`,
                 `交叉验证 KPI 与预算数据中...`,
-                `深度扫描信息访问权限...`,
-                `综合 7 项维度，生成最终评估...`
+                `深度扫描信息访问权限（连总裁办都没放过）...`,
+                `综合 9 项维度，生成最终评估...`
             ];
 
             function nextStep() {
@@ -2234,15 +2070,15 @@
                     emoji: '&#128141;',
                     status: '神仙眷侣',
                     subtitle: '职场天选 CP',
-                    desc: '你们的爱情就像办公室里的一缕清风，毫无利益纠葛，纯得像刚开封的矿泉水。公司里没人会投来异样的眼光，你们就是那对让所有人羡慕的神仙组合！',
+                    desc: '你们的爱情就像G7超级增程——续航焦虑？不存在的。毫无利益纠葛，纯得像刚开封的矿泉水。公司里没人会投来异样的眼光，你们就是岑村里最让人羡慕的神仙组合！',
                     scoreColor: 'var(--green)',
-                    tagline: '爱情浓度: MAX | 合规风险: 几乎为零 | 甜度: 蜜罐级别'
+                    tagline: '爱情浓度: MAX | 合规风险: 几乎为零 | 甜度: P7+级别的颜值'
                 },
                 yellow: {
                     emoji: '&#127800;',
                     status: '甜蜜冒险家',
                     subtitle: '小刺激更心动',
-                    desc: '你们之间有微妙的职场联系，像是加了辣椒的巧克力——有点刺激但很上瘾。注意保持公私分明的防火墙，这份"危险关系"反而能让感情升温！',
+                    desc: '你们之间有微妙的职场联系，像是MONA M03——价格亲民但惊喜不断。注意保持公私分明的防火墙，这份"危险关系"反而能让感情像X9一样升温！',
                     scoreColor: 'var(--yellow)',
                     tagline: '爱情浓度: HIGH | 合规风险: 轻微 | 甜度: 比薄荷糖清爽'
                 },
@@ -2252,13 +2088,13 @@
                     subtitle: '心跳加速型选手',
                     desc: '你们的爱情像在办公室走钢丝——精彩但需要平衡术。AI 建议你们建立明确的"公私边界协议"，在项目合作中保持专业，在下班后尽情撒糖。走得好就是爱情佳话，走歪了就是HR茶水间的新八卦...',
                     scoreColor: '#ff8c42',
-                    tagline: '爱情浓度: MEDIUM | 合规风险: 中等偏高 | 甜度: 过山车式'
+                    tagline: '爱情浓度: MEDIUM | 合规风险: 中等偏高 | 甜度: G6式过山车'
                 },
                 red: {
                     emoji: '&#128163;',
                     status: '高危关系户',
                     subtitle: '建议先保住饭碗',
-                    desc: '你们之间的利益交叉密度堪比蜘蛛网。AI 不是在泼冷水，而是在保护你们的年终奖！强烈建议先处理好职场关系再谈感情——毕竟，失业了连约会都去不起星巴克。',
+                    desc: '你们之间的利益交叉密度堪比蜘蛛网。AI 不是在泼冷水，而是在保护你们的年终奖！强烈建议先处理好职场关系再谈感情——毕竟，失业了连GX的定金都交不起。',
                     scoreColor: 'var(--red)',
                     tagline: '爱情浓度: ? | 合规风险: 爆表 | 甜度: 可能是苦的'
                 }
@@ -2461,15 +2297,6 @@
         // ===== Init: bind all events =====
         createFloatingHearts();
         initFormSelects();
-        checkFeishuStatus();
-
-        // Name input search events
-        document.getElementById('nameA').addEventListener('input', function() {
-            onNameInput('A', this.value.trim());
-        });
-        document.getElementById('nameB').addEventListener('input', function() {
-            onNameInput('B', this.value.trim());
-        });
 
         // Nav links
         document.querySelectorAll('.nav-link').forEach(function(link) {
