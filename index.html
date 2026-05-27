@@ -2387,7 +2387,7 @@
                 confessBtn.addEventListener('click', function() {
                     var nameA = document.getElementById('nameA').value;
                     var nameB = document.getElementById('nameB').value;
-                    var defaultMsg = nameA + '，AI说我们在一起很安全！😍\\n检测结果：神仙眷侣，零风险。\\n\\n我鼓起勇气跟你说：我喜欢你！🤍\\n\\n' + nameB;
+                    var defaultMsg = '绿灯亮了。\\nAI说我们可以爱。\\n可它不知道——\\n我早就爱了。\\n\\n——' + nameA;
                     document.getElementById('confessText').value = defaultMsg;
                     document.getElementById('confessOverlay').classList.add('active');
                 });
@@ -2563,8 +2563,8 @@
         <div class="confess-modal">
             <button class="close-btn" id="confessClose">×</button>
             <span class="heart-icon">🩷</span>
-            <h3>AI 月老已牵线</h3>
-            <div class="subtitle">检测结果安全通过，大胆去爱吧！</div>
+            <h3>绿灯亮了</h3>
+            <div class="subtitle">AI说你们可以爱——但爱不需要AI批准</div>
             <textarea class="confess-textarea" id="confessText" placeholder="写下你想对 TA 说的话...&#10;&#10;AI 提示：真诚是最好的告白"></textarea>
             <div class="confess-actions">
                 <button class="btn-copy" id="btnCopyText">📋 复制告白文案</button>
