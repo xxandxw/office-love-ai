@@ -2401,7 +2401,23 @@
                 if (e.target === this) this.classList.remove('active');
             });
             document.getElementById('btnCloseConfess').addEventListener('click', function() {
+                var text = document.getElementById('confessText').value;
+                if (!text.trim()) {
+                    text = '绿灯亮了。\nAI说我们可以爱。\n可它不知道——\n我早就爱了。';
+                }
+                var shareUrl = 'https://xxandxw.github.io/office-love-ai/';
+                var feishuText = encodeURIComponent(text + '\n\n—— 来自「办公室恋爱合规AI检测」' + shareUrl);
+                // 复制到剪贴板
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text).catch(function(){});
+                }
+                // 唤起飞书分享
+                window.open('https://open.feishu.cn/open-apis/lark/v1/shares/create?text=' + feishuText, '_blank');
                 document.getElementById('confessOverlay').classList.remove('active');
+                var toast = document.getElementById('confessToast');
+                toast.textContent = '❤️ 文案已复制，飞书已打开，快去发给你爱的人！';
+                toast.classList.add('show');
+                setTimeout(function() { toast.classList.remove('show'); }, 3000);
             });
             document.getElementById('btnCopyText').addEventListener('click', function() {
                 var text = document.getElementById('confessText').value;
