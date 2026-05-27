@@ -2331,6 +2331,7 @@
                         '</div>' +
                         '<span style="color:' + config.scoreColor + ';font-weight:700">' + result.score + ' 分</span>' +
                     '</div>' +
+                    (result.level === 'green' ? '<div style="text-align:center;margin:16px 0 0"><button class="btn-confess" id="btnConfess">&#128151; 一键告白</button></div>' : '') +
                 '</div>' +
                 '<div class="advice-card">' +
                     '<h4>&#128161; AI 恋爱生存指南</h4>' +
@@ -2345,11 +2346,11 @@
                     '<ul>' + adviceHtml + '</ul>' +
                 '</div>' +
                 '</div>' +
-                '<div class="result-actions">' +'
-                    <button class="btn-secondary" id="btnRetest">&#128260; 重新检测</button>' +'
-                    <button class="btn-secondary" id="btnShare">&#128228; 保存图片</button>' +'
-                    <button class="btn-secondary" id="btnMore">&#128214; 了解更多</button>' +(result.level === 'green' ? '<button class="btn-confess" id="btnConfess">&#128151; 一键告白</button>' : '') +'
-                </div>';
+                '<div class="result-actions">' +
+                    '<button class="btn-secondary" id="btnRetest">&#128260; 重新检测</button>' +
+                    '<button class="btn-secondary" id="btnShare">&#128228; 保存图片</button>' +
+                    '<button class="btn-secondary" id="btnMore">&#128214; 了解更多</button>' +(result.level === 'green' ? '<button class="btn-confess" id="btnConfess">&#128151; 一键告白</button>' : '') +
+                '</div>';
 
             // Show result page
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2386,12 +2387,7 @@
                 confessBtn.addEventListener('click', function() {
                     var nameA = document.getElementById('nameA').value;
                     var nameB = document.getElementById('nameB').value;
-                    var defaultMsg = nameA + '，AI说我们在一起很安全！😍
-检测结果：神仙眷侣，零风险。
-
-我鼓起勇气跟你说：我喜欢你！🤍
-
-' + nameB;
+                    var defaultMsg = nameA + '，AI说我们在一起很安全！😍\\n检测结果：神仙眷侣，零风险。\\n\\n我鼓起勇气跟你说：我喜欢你！🤍\\n\\n' + nameB;
                     document.getElementById('confessText').value = defaultMsg;
                     document.getElementById('confessOverlay').classList.add('active');
                 });
