@@ -48,7 +48,7 @@
             pointer-events: none;
         }
 
-        /* ===== Floating Hearts & Carrots ===== */
+        /* ===== Floating Hearts ===== */
         .hearts-container {
             position: fixed;
             top: 0; left: 0;
@@ -64,13 +64,6 @@
             opacity: 0;
             animation: floatUp linear infinite;
             font-size: 20px;
-        }
-
-        .floating-carrot {
-            position: absolute;
-            bottom: -40px;
-            opacity: 0;
-            animation: floatUp linear infinite;
         }
 
         @keyframes floatUp {
@@ -200,22 +193,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-carrot-wrap {
-            position: absolute;
-            right: -70px;
-            top: -15px;
-            animation: carrotBounce 3s ease-in-out infinite;
-            filter: drop-shadow(0 4px 12px rgba(255, 150, 50, 0.3));
-            z-index: 2;
-        }
-
-        @keyframes carrotBounce {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-12px) rotate(5deg); }
         }
 
         .hero .subtitle {
@@ -1186,7 +1163,6 @@
         <div class="nav-logo" id="navLogo">
             <div class="logo-icon">&#10084;</div>
             <span>Office Love AI</span>
-            <svg viewBox="0 0 80 100" width="28" height="35" xmlns="http://www.w3.org/2000/svg" style="margin-left:4px;filter:drop-shadow(0 2px 4px rgba(255,150,50,0.4))"><ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42"/><ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D"/><circle cx="32" cy="55" r="3.5" fill="#5D4037"/><circle cx="48" cy="55" r="3.5" fill="#5D4037"/><ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/><path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/><line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/></svg>
         </div>
         <div class="nav-links">
             <button class="nav-link active" data-page="home">首页</button>
@@ -1202,30 +1178,7 @@
                 <span class="dot"></span>
                 AI 职场恋爱合规检测系统
             </div>
-            <h1>办公室的你们<br>可以AI吗？<span class="hero-carrot-wrap"><svg viewBox="0 0 80 100" width="70" height="88" xmlns="http://www.w3.org/2000/svg">
-    <!-- Carrot body -->
-    <ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42" />
-    <ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D" />
-    <!-- Highlight -->
-    <ellipse cx="33" cy="50" rx="6" ry="12" fill="rgba(255,255,255,0.25)" transform="rotate(-10,33,50)" />
-    <!-- Face - cute cat mouth -->
-    <circle cx="32" cy="55" r="3.5" fill="#5D4037"/>
-    <circle cx="48" cy="55" r="3.5" fill="#5D4037"/>
-    <circle cx="30" cy="53" r="1.2" fill="#fff"/>
-    <circle cx="46" cy="53" r="1.2" fill="#fff"/>
-    <!-- Blush -->
-    <ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)" />
-    <ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)" />
-    <!-- Cat mouth (w shape) -->
-    <path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <!-- Leaves -->
-    <path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/>
-    <path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/>
-    <path d="M40 30 Q40 12 40 30" fill="none"/>
-    <line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/>
-    <!-- Small heart -->
-    <path d="M40 44 C40 42,43 40,45 42 C47 44,43 48,40 48 C37 48,33 44,35 42 C37 40,40 42,40 44Z" fill="#ff6b8a" opacity="0.7"/>
-</svg></span></h1>
+            <h1>办公室的你们<br>可以AI吗？</h1>
             <p class="subtitle">办公室恋爱，不设围墙，只设导航。<br>让AI当一回职场月老，也当一次风险侦探。</p>
             <p class="tagline">"爱情不可耻，盲目才危险"</p>
             <button class="btn-primary" id="heroStartBtn">
@@ -1284,23 +1237,7 @@
                 <div class="couple-connector">
                     <div class="heart-bridge">
                         <div class="line"></div>
-                        <div class="heart-icon">
-                            <svg viewBox="0 0 80 100" width="50" height="62" xmlns="http://www.w3.org/2000/svg">
-                                <ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42"/>
-                                <ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D"/>
-                                <ellipse cx="33" cy="50" rx="6" ry="12" fill="rgba(255,255,255,0.25)" transform="rotate(-10,33,50)"/>
-                                <circle cx="32" cy="55" r="3.5" fill="#5D4037"/>
-                                <circle cx="48" cy="55" r="3.5" fill="#5D4037"/>
-                                <circle cx="30" cy="53" r="1.2" fill="#fff"/>
-                                <circle cx="46" cy="53" r="1.2" fill="#fff"/>
-                                <ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/>
-                                <ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/>
-                                <path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                                <path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/>
-                                <path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/>
-                                <line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/>
-                            </svg>
-                        </div>
+                        <div class="heart-icon">&#10084;&#65039;</div>
                         <div class="line"></div>
                     </div>
                 </div>
@@ -1401,7 +1338,6 @@
         </div>
 
         <div class="footer">
-            <svg viewBox="0 0 80 100" width="40" height="50" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-bottom:4px;filter:drop-shadow(0 2px 6px rgba(255,150,50,0.4))"><ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42"/><ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D"/><circle cx="32" cy="55" r="3.5" fill="#5D4037"/><circle cx="48" cy="55" r="3.5" fill="#5D4037"/><ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/><path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/><line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/></svg>
             <p class="footer-slogan">"用AI扫清隐患，让爱情不再是偷偷摸摸的禁果"</p>
             <p>Office Love AI &copy; 2026 | AI大赛参赛作品</p>
         </div>
@@ -2164,14 +2100,12 @@
             let suggestionsHtml = '';
             result.suggestions.forEach(function(s) { suggestionsHtml += '<li>' + s + '</li>'; });
 
-            var carrotEmojiSvg = '<svg viewBox="0 0 80 100" width="36" height="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42"/><ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D"/><circle cx="32" cy="55" r="3.5" fill="#5D4037"/><circle cx="48" cy="55" r="3.5" fill="#5D4037"/><ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/><path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/><line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/></svg>';
-
             container.innerHTML =
                 '<div id="shareContent">' +
                 '<div class="result-card ' + result.level + '" id="shareCard">' +
                     '<div class="couple-avatars">' +
                         '<div class="avatar avatar-a">&#128105;</div>' +
-                        '<div class="avatar-heart">' + carrotEmojiSvg + '</div>' +
+                        '<div class="avatar-heart">&#10084;&#65039;</div>' +
                         '<div class="avatar avatar-b">&#128104;</div>' +
                     '</div>' +
                     '<div class="result-couple-info">' + nameA + ' &amp; ' + nameB + '</div>' +
@@ -2316,13 +2250,13 @@
             });
         }
 
-        // ===== Floating Hearts & Carrots =====
+        // ===== Floating Hearts =====
         function createFloatingHearts() {
             const container = document.getElementById('heartsContainer');
             const hearts = ['&#10084;', '&#128151;', '&#128152;', '&#128149;', '&#128156;'];
             const colors = ['#ff4d6d', '#c084fc', '#fb7185', '#f472b6', '#a78bfa'];
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'floating-heart';
                 heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
@@ -2332,22 +2266,6 @@
                 heart.style.animationDelay = (Math.random() * 15) + 's';
                 heart.style.fontSize = (Math.random() * 15 + 12) + 'px';
                 container.appendChild(heart);
-            }
-
-            // Floating carrots
-            var carrotSvg = '<svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="62" rx="24" ry="34" fill="#FF8C42"/><ellipse cx="40" cy="60" rx="22" ry="31" fill="#FFA64D"/><circle cx="32" cy="55" r="3.5" fill="#5D4037"/><circle cx="48" cy="55" r="3.5" fill="#5D4037"/><ellipse cx="25" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><ellipse cx="55" cy="63" rx="5" ry="3" fill="rgba(255,130,130,0.45)"/><path d="M34 68 Q37 72 40 68 Q43 72 46 68" stroke="#5D4037" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M40 30 Q35 10 28 18 Q32 20 36 28" fill="#6BCB77"/><path d="M40 30 Q45 8 52 16 Q47 19 44 28" fill="#5AB868"/><line x1="40" y1="30" x2="40" y2="18" stroke="#4A9E56" stroke-width="1.5"/></svg>';
-
-            for (let i = 0; i < 5; i++) {
-                const carrot = document.createElement('div');
-                carrot.className = 'floating-carrot';
-                carrot.innerHTML = carrotSvg;
-                carrot.style.left = Math.random() * 100 + '%';
-                carrot.style.width = (Math.random() * 15 + 20) + 'px';
-                carrot.style.height = 'auto';
-                carrot.style.animationDuration = (Math.random() * 12 + 14) + 's';
-                carrot.style.animationDelay = (Math.random() * 20) + 's';
-                carrot.style.opacity = '0';
-                container.appendChild(carrot);
             }
         }
 
