@@ -1663,8 +1663,9 @@
             '海外制造运营中心','德国研发中心','战略部','通用智能中心'
         ];
         var fallbackLevels = [
-            'P4-初级工程师','P5-工程师','P6-高级工程师','P7-资深专家/技术负责人',
-            'P8-部门总监','P9-副总裁/一级部门负责人','P10-总裁/CEO'
+            '培训生','P4-专员/助理工程师','P5-主管/初级工程师',
+            'P6-经理/工程师','P7-专家/高级经理/高级工程师','P8-总监',
+            'P9-高级总监/总经理','P10-副总裁','总裁/CEO'
         ];
 
         // Populate select dropdowns with options
@@ -1787,6 +1788,8 @@
 
         // ===== Parse level to number (P4-P10 scale, P4=4, P10=10) =====
         function parseLevel(levelStr) {
+            if (!levelStr) return 5;
+            if (levelStr.indexOf('培训生') !== -1) return 0;
             const match = levelStr.match(/P(\d+)/);
             return match ? parseInt(match[1]) : 5;
         }
