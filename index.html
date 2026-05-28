@@ -574,6 +574,88 @@
             cursor: pointer;
         }
 
+        /* ===== Dept Search Combobox ===== */
+        .dept-combobox {
+            position: relative;
+            width: 100%;
+        }
+        .dept-combobox input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .dept-combobox input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(192,132,252,0.15);
+        }
+        .dept-combobox input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        .dept-combobox .dept-arrow {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.35);
+            font-size: 10px;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+        .dept-combobox.open .dept-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        .dept-combobox .dept-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            padding: 4px 0;
+        }
+        .dept-combobox.open .dept-dropdown {
+            display: block;
+        }
+        .dept-combobox .dept-option {
+            padding: 10px 14px;
+            color: rgba(255,255,255,0.75);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .dept-combobox .dept-option:hover,
+        .dept-combobox .dept-option.highlighted {
+            background: rgba(192,132,252,0.15);
+            color: #fff;
+        }
+        .dept-combobox .dept-option .dept-match {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+        .dept-combobox .dept-empty {
+            padding: 14px;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            text-align: center;
+        }
+        /* scrollbar */
+        .dept-combobox .dept-dropdown::-webkit-scrollbar { width: 4px; }
+        .dept-combobox .dept-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dept-combobox .dept-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
         .form-input::placeholder {
             color: rgba(255,255,255,0.25);
         }
@@ -1507,9 +1589,12 @@
                     <div class="form-label">&#128105;&#8205;&#128187; 女主角 &#128149;</div>
                     <div class="form-row">
                         <input class="form-input" id="nameA" placeholder="输入姓名" required autocomplete="off">
-                        <select class="form-select" id="deptA" required>
-                            <option value="">选择部门</option>
-                        </select>
+                        <div class="dept-combobox" id="deptBoxA">
+                            <input type="text" id="deptAInput" placeholder="输入或搜索部门" autocomplete="off">
+                            <span class="dept-arrow">&#9660;</span>
+                            <div class="dept-dropdown" id="deptDropA"></div>
+                            <input type="hidden" id="deptA" value="">
+                        </div>
                     </div>
                     <div style="margin-top:10px">
                         <select class="form-select" id="levelA" required>
@@ -1532,9 +1617,12 @@
                     <div class="form-label">&#128104;&#8205;&#128187; 男主角 &#128150;</div>
                     <div class="form-row">
                         <input class="form-input" id="nameB" placeholder="输入姓名" required autocomplete="off">
-                        <select class="form-select" id="deptB" required>
-                            <option value="">选择部门</option>
-                        </select>
+                        <div class="dept-combobox" id="deptBoxB">
+                            <input type="text" id="deptBInput" placeholder="输入或搜索部门" autocomplete="off">
+                            <span class="dept-arrow">&#9660;</span>
+                            <div class="dept-dropdown" id="deptDropB"></div>
+                            <input type="hidden" id="deptB" value="">
+                        </div>
                     </div>
                     <div style="margin-top:10px">
                         <select class="form-select" id="levelB" required>
@@ -1677,13 +1765,132 @@
             selectEl.innerHTML = html;
         }
 
+        // ===== Dept Search Combobox =====
+        function initDeptCombobox(boxId, inputId, dropId, hiddenId) {
+            var box = document.getElementById(boxId);
+            var input = document.getElementById(inputId);
+            var drop = document.getElementById(dropId);
+            var hidden = document.getElementById(hiddenId);
+            var highlightIdx = -1;
+            var filtered = [];
+
+            function renderOptions(query) {
+                var q = (query || '').trim().toLowerCase();
+                filtered = [];
+                for (var i = 0; i < fallbackDepartments.length; i++) {
+                    if (!q || fallbackDepartments[i].toLowerCase().indexOf(q) !== -1) {
+                        filtered.push(fallbackDepartments[i]);
+                    }
+                }
+                if (filtered.length === 0) {
+                    drop.innerHTML = '<div class="dept-empty">没有匹配的部门</div>';
+                    highlightIdx = -1;
+                    return;
+                }
+                var html = '';
+                for (var j = 0; j < filtered.length; j++) {
+                    var name = filtered[j];
+                    var label = name;
+                    if (q) {
+                        var idx = name.toLowerCase().indexOf(q);
+                        label = name.substring(0, idx)
+                            + '<span class="dept-match">' + name.substring(idx, idx + q.length) + '</span>'
+                            + name.substring(idx + q.length);
+                    }
+                    html += '<div class="dept-option' + (j === highlightIdx ? ' highlighted' : '') + '" data-value="' + name + '">' + label + '</div>';
+                }
+                drop.innerHTML = html;
+                highlightIdx = -1;
+
+                // bind click
+                var opts = drop.querySelectorAll('.dept-option');
+                for (var k = 0; k < opts.length; k++) {
+                    opts[k].addEventListener('mousedown', function(e) {
+                        e.preventDefault();
+                        selectDept(this.getAttribute('data-value'));
+                    });
+                }
+            }
+
+            function selectDept(value) {
+                hidden.value = value;
+                input.value = value;
+                closeDrop();
+            }
+
+            function openDrop() {
+                renderOptions(input.value);
+                box.classList.add('open');
+            }
+
+            function closeDrop() {
+                box.classList.remove('open');
+                highlightIdx = -1;
+            }
+
+            function reHighlight() {
+                var items = drop.querySelectorAll('.dept-option');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].classList.toggle('highlighted', i === highlightIdx);
+                }
+            }
+
+            input.addEventListener('focus', function() {
+                openDrop();
+            });
+
+            input.addEventListener('input', function() {
+                // user typed something new, clear hidden value
+                hidden.value = '';
+                openDrop();
+            });
+
+            input.addEventListener('blur', function() {
+                // small delay so click on option fires first
+                setTimeout(closeDrop, 150);
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (!box.classList.contains('open')) {
+                    if (e.key === 'ArrowDown' || e.key === 'Enter') { openDrop(); e.preventDefault(); }
+                    return;
+                }
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (highlightIdx < filtered.length - 1) highlightIdx++;
+                    reHighlight();
+                    if (highlightIdx >= 0) {
+                        drop.children[highlightIdx].scrollIntoView({ block: 'nearest' });
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (highlightIdx > 0) highlightIdx--;
+                    reHighlight();
+                    if (highlightIdx >= 0) {
+                        drop.children[highlightIdx].scrollIntoView({ block: 'nearest' });
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (highlightIdx >= 0 && filtered[highlightIdx]) {
+                        selectDept(filtered[highlightIdx]);
+                    }
+                } else if (e.key === 'Escape') {
+                    closeDrop();
+                }
+            });
+
+            // expose reset
+            input._reset = function() {
+                hidden.value = '';
+                input.value = '';
+            };
+        }
+
         // Init form selects with fallback data immediately
         function initFormSelects() {
-            var deptSelects = [document.getElementById('deptA'), document.getElementById('deptB')];
+            initDeptCombobox('deptBoxA', 'deptAInput', 'deptDropA', 'deptA');
+            initDeptCombobox('deptBoxB', 'deptBInput', 'deptDropB', 'deptB');
             var levelSelects = [document.getElementById('levelA'), document.getElementById('levelB')];
-            for (var i = 0; i < deptSelects.length; i++) {
-                populateSelect(deptSelects[i], fallbackDepartments, '选择部门');
-            }
             for (var i = 0; i < levelSelects.length; i++) {
                 populateSelect(levelSelects[i], fallbackLevels, '选择职级');
             }
@@ -2383,8 +2590,8 @@
         function resetForm() {
             document.getElementById('nameA').value = '';
             document.getElementById('nameB').value = '';
-            document.getElementById('deptA').value = '';
-            document.getElementById('deptB').value = '';
+            document.getElementById('deptAInput')._reset();
+            document.getElementById('deptBInput')._reset();
             document.getElementById('levelA').value = '';
             document.getElementById('levelB').value = '';
         }
