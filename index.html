@@ -1602,9 +1602,12 @@
                         </div>
                     </div>
                     <div style="margin-top:10px">
-                        <select class="form-select" id="levelA" required>
-                            <option value="">选择职级</option>
-                        </select>
+                        <div class="dept-combobox" id="levelBoxA">
+                            <input type="text" id="levelAInput" placeholder="输入或搜索职级" autocomplete="off">
+                            <span class="dept-arrow">&#9660;</span>
+                            <div class="dept-dropdown" id="levelDropA"></div>
+                            <input type="hidden" id="levelA" value="">
+                        </div>
                     </div>
                 </div>
 
@@ -1630,9 +1633,12 @@
                         </div>
                     </div>
                     <div style="margin-top:10px">
-                        <select class="form-select" id="levelB" required>
-                            <option value="">选择职级</option>
-                        </select>
+                        <div class="dept-combobox" id="levelBoxB">
+                            <input type="text" id="levelBInput" placeholder="输入或搜索职级" autocomplete="off">
+                            <span class="dept-arrow">&#9660;</span>
+                            <div class="dept-dropdown" id="levelDropB"></div>
+                            <input type="hidden" id="levelB" value="">
+                        </div>
                     </div>
                 </div>
 
@@ -1770,21 +1776,22 @@
             selectEl.innerHTML = html;
         }
 
-        // ===== Dept Search Combobox =====
-        function initDeptCombobox(boxId, inputId, dropId, hiddenId) {
+        // ===== Search Combobox (shared by dept & level) =====
+        function initDeptCombobox(boxId, inputId, dropId, hiddenId, dataSource) {
             var box = document.getElementById(boxId);
             var input = document.getElementById(inputId);
             var drop = document.getElementById(dropId);
             var hidden = document.getElementById(hiddenId);
+            var source = dataSource || fallbackDepartments;
             var highlightIdx = -1;
             var filtered = [];
 
             function renderOptions(query) {
                 var q = (query || '').trim().toLowerCase();
                 filtered = [];
-                for (var i = 0; i < fallbackDepartments.length; i++) {
-                    if (!q || fallbackDepartments[i].toLowerCase().indexOf(q) !== -1) {
-                        filtered.push(fallbackDepartments[i]);
+                for (var i = 0; i < source.length; i++) {
+                    if (!q || source[i].toLowerCase().indexOf(q) !== -1) {
+                        filtered.push(source[i]);
                     }
                 }
                 if (filtered.length === 0) {
@@ -1895,10 +1902,8 @@
         function initFormSelects() {
             initDeptCombobox('deptBoxA', 'deptAInput', 'deptDropA', 'deptA');
             initDeptCombobox('deptBoxB', 'deptBInput', 'deptDropB', 'deptB');
-            var levelSelects = [document.getElementById('levelA'), document.getElementById('levelB')];
-            for (var i = 0; i < levelSelects.length; i++) {
-                populateSelect(levelSelects[i], fallbackLevels, '选择职级');
-            }
+            initDeptCombobox('levelBoxA', 'levelAInput', 'levelDropA', 'levelA', fallbackLevels);
+            initDeptCombobox('levelBoxB', 'levelBInput', 'levelDropB', 'levelB', fallbackLevels);
         }
 
         // ===== Data: Organization Structure (小鹏汽车真实架构 2025-2026) =====
@@ -2597,8 +2602,8 @@
             document.getElementById('nameB').value = '';
             document.getElementById('deptAInput')._reset();
             document.getElementById('deptBInput')._reset();
-            document.getElementById('levelA').value = '';
-            document.getElementById('levelB').value = '';
+            document.getElementById('levelAInput')._reset();
+            document.getElementById('levelBInput')._reset();
         }
 
         // ===== Confetti =====
