@@ -2250,7 +2250,8 @@
                     '<div class="result-status">' + config.status + '</div>' +
                     '<div class="result-subtitle" style="color:' + config.scoreColor + ';font-size:14px;opacity:0.85;margin-bottom:12px">' + config.subtitle + '</div>' +
                     '<div class="result-desc">' + config.desc + '</div>' +
-                    '<div class="result-tagline" style="font-size:11px;color:var(--text-secondary);margin:16px 0 20px;letter-spacing:1px">' + config.tagline + '</div>' +
+                    '<div class="result-tagline" style="font-size:11px;color:var(--text-secondary);margin:16px 0 12px;letter-spacing:1px">' + config.tagline + '</div>' +
+                    '<div style="text-align:center;margin-bottom:20px"><button class="btn-secondary" id="btnRetestTop" style="font-size:13px;padding:8px 24px;opacity:0.7">&#128260; 再测一次</button></div>' +
                     '<div class="result-score">' +
                         '<span>综合安全评分</span>' +
                         '<div class="score-bar">' +
@@ -2298,6 +2299,10 @@
 
             // Bind result page buttons
             document.getElementById('btnRetest').addEventListener('click', function() {
+                showPage('detect');
+                resetForm();
+            });
+            document.getElementById('btnRetestTop').addEventListener('click', function() {
                 showPage('detect');
                 resetForm();
             });
