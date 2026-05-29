@@ -2374,6 +2374,21 @@
 
         // ===== Start Detection =====
         function startDetection() {
+            // Sync combobox inputs to hidden fields (in case user typed without selecting)
+            var fields = [
+                {input: 'deptAInput', hidden: 'deptA'},
+                {input: 'deptBInput', hidden: 'deptB'},
+                {input: 'levelAInput', hidden: 'levelA'},
+                {input: 'levelBInput', hidden: 'levelB'}
+            ];
+            for (var f = 0; f < fields.length; f++) {
+                var inp = document.getElementById(fields[f].input);
+                var hid = document.getElementById(fields[f].hidden);
+                if (hid && inp && !hid.value && inp.value.trim()) {
+                    hid.value = inp.value.trim();
+                }
+            }
+
             const nameA = document.getElementById('nameA').value.trim();
             const nameB = document.getElementById('nameB').value.trim();
             const deptA = document.getElementById('deptA').value;
