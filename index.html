@@ -2651,29 +2651,6 @@
                     }
                 }
             });
-            document.getElementById('btnCopyText').addEventListener('click', function() {
-                var text = document.getElementById('confessText').value;
-                if (!text.trim()) {
-                    document.getElementById('confessToast').textContent = '❌ 请先写下告白文案';
-                    document.getElementById('confessToast').classList.add('show');
-                    setTimeout(function() { document.getElementById('confessToast').classList.remove('show'); }, 2000);
-                    return;
-                }
-                navigator.clipboard.writeText(text).then(function() {
-                    var toast = document.getElementById('confessToast');
-                    toast.textContent = '✔ 已复制到剪贴板，快去告白吧！';
-                    toast.classList.add('show');
-                    setTimeout(function() { toast.classList.remove('show'); }, 2500);
-                }).catch(function() {
-                    var ta = document.getElementById('confessText');
-                    ta.select();
-                    document.execCommand('copy');
-                    var toast = document.getElementById('confessToast');
-                    toast.textContent = '✔ 已复制到剪贴板，快去告白吧！';
-                    toast.classList.add('show');
-                    setTimeout(function() { toast.classList.remove('show'); }, 2500);
-                });
-            });
         }
 
         // ===== Reset Form =====
@@ -2915,7 +2892,6 @@
             <div class="subtitle">AI说你们可以爱——但爱不需要AI批准</div>
             <textarea class="confess-textarea" id="confessText" placeholder="写下你想对 TA 说的话...&#10;&#10;AI 提示：真诚是最好的告白"></textarea>
             <div class="confess-actions">
-                <button class="btn-copy" id="btnCopyText">📋 复制告白文案</button>
                 <button class="btn-copy" id="btnCloseConfess">💌 复制并去告白</button>
             </div>
         </div>
