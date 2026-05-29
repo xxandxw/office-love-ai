@@ -2557,19 +2557,38 @@
                 if (!text.trim()) {
                     text = '绿灯亮了。\nAI说我们可以爱。\n可它不知道——\n我早就爱了。';
                 }
-                var shareUrl = 'https://xxandxw.github.io/office-love-ai/';
-                var feishuText = encodeURIComponent(text + '\n\n—— 来自「办公室恋爱合规AI检测」' + shareUrl);
-                // 复制到剪贴板
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(text).catch(function(){});
-                }
-                // 唤起飞书分享
-                window.open('https://open.feishu.cn/open-apis/lark/v1/shares/create?text=' + feishuText, '_blank');
-                document.getElementById('confessOverlay').classList.remove('active');
                 var toast = document.getElementById('confessToast');
-                toast.textContent = '❤️ 文案已复制，飞书已打开，快去发给你爱的人！';
-                toast.classList.add('show');
-                setTimeout(function() { toast.classList.remove('show'); }, 3000);
+
+                function showToastMsg(msg) {
+                    toast.textContent = msg;
+                    toast.classList.add('show');
+                    setTimeout(function() { toast.classList.remove('show'); }, 3000);
+                }
+
+                // 复制到剪贴板
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(function() {
+                        document.getElementById('confessOverlay').classList.remove('active');
+                        showToastMsg('✅ 文案已复制！打开飞书，粘贴发给 TA 吧 💌');
+                    }).catch(function() {
+                        var ta = document.getElementById('confessText');
+                        ta.select();
+                        document.execCommand('copy');
+                        document.getElementById('confessOverlay').classList.remove('active');
+                        showToastMsg('✅ 文案已复制！打开飞书，粘贴发给 TA 吧 💌');
+                    });
+                } else {
+                    try {
+                        var ta = document.getElementById('confessText');
+                        ta.select();
+                        document.execCommand('copy');
+                        document.getElementById('confessOverlay').classList.remove('active');
+                        showToastMsg('✅ 文案已复制！打开飞书，粘贴发给 TA 吧 💌');
+                    } catch(e) {
+                        document.getElementById('confessOverlay').classList.remove('active');
+                        showToastMsg('💌 请手动复制文案，再打开飞书发给 TA！');
+                    }
+                }
             });
             document.getElementById('btnCopyText').addEventListener('click', function() {
                 var text = document.getElementById('confessText').value;
@@ -2736,7 +2755,7 @@
             <textarea class="confess-textarea" id="confessText" placeholder="写下你想对 TA 说的话...&#10;&#10;AI 提示：真诚是最好的告白"></textarea>
             <div class="confess-actions">
                 <button class="btn-copy" id="btnCopyText">📋 复制告白文案</button>
-                <button class="btn-copy" id="btnCloseConfess">❤️ 去告白！</button>
+                <button class="btn-copy" id="btnCloseConfess">💌 复制并去告白</button>
             </div>
         </div>
     </div>
