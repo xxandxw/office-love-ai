@@ -2388,27 +2388,12 @@
 
         // ===== Start Detection =====
         function startDetection() {
-            // Sync combobox inputs to hidden fields (in case user typed without selecting)
-            var fields = [
-                {input: 'deptAInput', hidden: 'deptA'},
-                {input: 'deptBInput', hidden: 'deptB'},
-                {input: 'levelAInput', hidden: 'levelA'},
-                {input: 'levelBInput', hidden: 'levelB'}
-            ];
-            for (var f = 0; f < fields.length; f++) {
-                var inp = document.getElementById(fields[f].input);
-                var hid = document.getElementById(fields[f].hidden);
-                if (hid && inp && !hid.value && inp.value.trim()) {
-                    hid.value = inp.value.trim();
-                }
-            }
-
             const nameA = document.getElementById('nameA').value.trim();
             const nameB = document.getElementById('nameB').value.trim();
-            const deptA = document.getElementById('deptA').value;
-            const deptB = document.getElementById('deptB').value;
-            const levelA = document.getElementById('levelA').value;
-            const levelB = document.getElementById('levelB').value;
+            const deptA = (document.getElementById('deptAInput').value || '').trim();
+            const deptB = (document.getElementById('deptBInput').value || '').trim();
+            const levelA = (document.getElementById('levelAInput').value || '').trim();
+            const levelB = (document.getElementById('levelBInput').value || '').trim();
 
             if (!nameA || !nameB || !deptA || !deptB || !levelA || !levelB) {
                 showToast('请填写完整双方信息');
@@ -2913,7 +2898,6 @@
         document.getElementById('detectBtn').addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            alert('按钮点击成功！');
             try {
                 startDetection();
             } catch (err) {
