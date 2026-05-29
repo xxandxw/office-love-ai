@@ -2462,7 +2462,7 @@
                     subtitle: '职场天选 CP',
                     desc: '你们的爱情就像G7超级增程——续航焦虑？不存在的。毫无利益纠葛，纯得像刚开封的矿泉水。公司里没人会投来异样的眼光，你们就是岑村里最让人羡慕的神仙组合！',
                     scoreColor: 'var(--green)',
-                    tagline: '爱情浓度: MAX | 合规风险: 几乎为零 | 甜度: P7+级别的颜值'
+                    tagline: 'AI 说你们可以爱 — 但爱不需要 AI 批准'
                 },
                 yellow: {
                     emoji: '&#127800;',
@@ -2530,7 +2530,7 @@
                     '<div class="result-status">' + config.status + '</div>' +
                     '<div class="result-subtitle" style="color:' + config.scoreColor + ';font-size:14px;opacity:0.85;margin-bottom:12px">' + config.subtitle + '</div>' +
                     '<div class="result-desc">' + config.desc + '</div>' +
-                    '<div class="result-tagline" style="font-size:11px;color:var(--text-secondary);margin:16px 0 12px;letter-spacing:1px">' + config.tagline + '</div>' +
+                    '<div class="result-tagline" style="font-size:15px;color:' + config.scoreColor + ';font-weight:600;margin:16px 0 12px;letter-spacing:0.5px">' + config.tagline + '</div>' +
                     '<div style="text-align:center;margin-bottom:20px"><button class="btn-secondary" id="btnRetestTop" style="font-size:13px;padding:8px 24px;opacity:0.7">&#128260; 再测一次</button></div>' +
                     '<div class="result-score">' +
                         '<span>综合安全评分</span>' +
@@ -2615,7 +2615,7 @@
             document.getElementById('btnCloseConfess').addEventListener('click', function() {
                 var text = document.getElementById('confessText').value;
                 if (!text.trim()) {
-                    text = '绿灯亮了。\nAI说我们可以爱。\n可它不知道——\n我早就爱了。';
+                    text = 'AI 说我们可以爱。\n可它不知道——\n我早就爱了...' + '\n\n——' + nameA;
                 }
                 var toast = document.getElementById('confessToast');
 
@@ -2910,8 +2910,8 @@
         <div class="confess-modal">
             <button class="close-btn" id="confessClose">×</button>
             <span class="heart-icon">🩷</span>
-            <h3>绿灯亮了</h3>
-            <div class="subtitle">AI说你们可以爱——但爱不需要AI批准</div>
+            <h3>AI 说你们可以爱</h3>
+            <div class="subtitle">但爱不需要 AI 批准</div>
             <textarea class="confess-textarea" id="confessText" placeholder="写下你想对 TA 说的话...&#10;&#10;AI 提示：真诚是最好的告白"></textarea>
             <div class="confess-actions">
                 <button class="btn-copy" id="btnCopyText">📋 复制告白文案</button>
