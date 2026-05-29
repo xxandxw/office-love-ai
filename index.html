@@ -2006,7 +2006,7 @@
         // ===== Parse level to number (P4-P10 scale, P4=4, P10=10) =====
         function parseLevel(levelStr) {
             if (!levelStr) return 5;
-            if (levelStr.indexOf('培训生') !== -1) return 0;
+            if (levelStr.indexOf('培训生') !== -1) return 3;
             const match = levelStr.match(/P(\d+)/);
             return match ? parseInt(match[1]) : 5;
         }
