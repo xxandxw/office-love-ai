@@ -761,6 +761,8 @@
         .detect-btn-container {
             text-align: center;
             margin-top: 24px;
+            position: relative;
+            z-index: 50;
         }
 
         .btn-detect {
@@ -775,6 +777,18 @@
             transition: all 0.3s;
             font-family: inherit;
             position: relative;
+            z-index: 51;
+            display: inline-block;
+        }
+
+        .btn-detect::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            z-index: -1;
         }
 
         .btn-detect:hover {
@@ -2896,8 +2910,15 @@
         });
 
         // Detect button
-        document.getElementById('detectBtn').addEventListener('click', function() {
-            startDetection();
+        document.getElementById('detectBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            try {
+                startDetection();
+            } catch (err) {
+                console.error('检测按钮点击出错:', err);
+                showToast('检测出错，请刷新页面重试');
+            }
         });
     </script>
 
