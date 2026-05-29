@@ -2913,6 +2913,7 @@
         document.getElementById('detectBtn').addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            alert('按钮点击成功！');
             try {
                 startDetection();
             } catch (err) {
