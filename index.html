@@ -665,6 +665,57 @@
             color: rgba(255,255,255,0.25);
         }
 
+        /* ===== Name Memory Suggest ===== */
+        .name-wrap {
+            position: relative;
+            flex: 1;
+        }
+        .name-wrap .form-input {
+            width: 100%;
+        }
+        .name-suggest {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            z-index: 110;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            padding: 4px 0;
+            max-height: 180px;
+            overflow-y: auto;
+        }
+        .name-suggest.open { display: block; }
+        .name-suggest-item {
+            padding: 9px 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .name-suggest-item:hover { background: rgba(192,132,252,0.15); }
+        .name-suggest-item .ns-name {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .name-suggest-item .ns-sub {
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .name-suggest-item .ns-match {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+        .name-suggest .ns-empty {
+            padding: 12px 14px;
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            text-align: center;
+        }
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1593,7 +1644,10 @@
                 <div class="form-section">
                     <div class="form-label">&#128105;&#8205;&#128187; 女主角 &#128149;</div>
                     <div class="form-row">
-                        <input class="form-input" id="nameA" placeholder="输入姓名" required autocomplete="off">
+                        <div class="name-wrap">
+                            <input class="form-input" id="nameA" placeholder="输入姓名" required autocomplete="off">
+                            <div class="name-suggest" id="suggestA"></div>
+                        </div>
                         <div class="dept-combobox" id="deptBoxA">
                             <input type="text" id="deptAInput" placeholder="输入或搜索部门" autocomplete="off">
                             <span class="dept-arrow">&#9660;</span>
@@ -1624,7 +1678,10 @@
                 <div class="form-section">
                     <div class="form-label">&#128104;&#8205;&#128187; 男主角 &#128150;</div>
                     <div class="form-row">
-                        <input class="form-input" id="nameB" placeholder="输入姓名" required autocomplete="off">
+                        <div class="name-wrap">
+                            <input class="form-input" id="nameB" placeholder="输入姓名" required autocomplete="off">
+                            <div class="name-suggest" id="suggestB"></div>
+                        </div>
                         <div class="dept-combobox" id="deptBoxB">
                             <input type="text" id="deptBInput" placeholder="输入或搜索部门" autocomplete="off">
                             <span class="dept-arrow">&#9660;</span>
@@ -2330,6 +2387,9 @@
             }
 
             // Show scanning animation
+            // Save to memory before detecting
+            savePersonToMemory(nameA, deptA, levelA);
+            savePersonToMemory(nameB, deptB, levelB);
             startScanAnimation(nameA, deptA, levelA, nameB, deptB, levelB);
         }
 
@@ -2711,9 +2771,109 @@
             }
         }
 
+        // ===== Name Memory (localStorage) =====
+        var MEMORY_KEY = 'olai_persons';
+
+        function loadPersonMemory() {
+            try {
+                return JSON.parse(localStorage.getItem(MEMORY_KEY) || '{}');
+            } catch(e) { return {}; }
+        }
+
+        function savePersonToMemory(name, dept, level) {
+            if (!name || !dept || !level) return;
+            var mem = loadPersonMemory();
+            mem[name] = { dept: dept, level: level };
+            try { localStorage.setItem(MEMORY_KEY, JSON.stringify(mem)); } catch(e) {}
+        }
+
+        function searchPersonMemory(query) {
+            if (!query) return [];
+            var mem = loadPersonMemory();
+            var q = query.toLowerCase();
+            var results = [];
+            for (var name in mem) {
+                if (name.toLowerCase().indexOf(q) !== -1) {
+                    results.push({ name: name, dept: mem[name].dept, level: mem[name].level });
+                }
+            }
+            return results;
+        }
+
+        // Fill dept & level comboboxes from memory record
+        function applyPersonRecord(rec, deptInputId, deptHiddenId, levelInputId, levelHiddenId) {
+            if (rec.dept) {
+                document.getElementById(deptInputId).value = rec.dept;
+                document.getElementById(deptHiddenId).value = rec.dept;
+            }
+            if (rec.level) {
+                document.getElementById(levelInputId).value = rec.level;
+                document.getElementById(levelHiddenId).value = rec.level;
+            }
+        }
+
+        function initNameSuggest(nameInputId, suggestId, deptInputId, deptHiddenId, levelInputId, levelHiddenId) {
+            var input = document.getElementById(nameInputId);
+            var suggest = document.getElementById(suggestId);
+
+            function highlight(text, q) {
+                if (!q) return text;
+                var idx = text.toLowerCase().indexOf(q.toLowerCase());
+                if (idx === -1) return text;
+                return text.substring(0, idx)
+                    + '<span class="ns-match">' + text.substring(idx, idx + q.length) + '</span>'
+                    + text.substring(idx + q.length);
+            }
+
+            function render(query) {
+                var results = searchPersonMemory(query);
+                if (results.length === 0) {
+                    suggest.classList.remove('open');
+                    return;
+                }
+                var html = '';
+                for (var i = 0; i < results.length; i++) {
+                    var r = results[i];
+                    html += '<div class="name-suggest-item" data-name="' + r.name + '" data-dept="' + r.dept + '" data-level="' + r.level + '">'
+                        + '<div class="ns-name">' + highlight(r.name, query) + '</div>'
+                        + '<div class="ns-sub">' + r.dept + ' · ' + r.level + '</div>'
+                        + '</div>';
+                }
+                suggest.innerHTML = html;
+                suggest.classList.add('open');
+
+                var items = suggest.querySelectorAll('.name-suggest-item');
+                for (var j = 0; j < items.length; j++) {
+                    items[j].addEventListener('mousedown', function(e) {
+                        e.preventDefault();
+                        input.value = this.getAttribute('data-name');
+                        suggest.classList.remove('open');
+                        applyPersonRecord(
+                            { dept: this.getAttribute('data-dept'), level: this.getAttribute('data-level') },
+                            deptInputId, deptHiddenId, levelInputId, levelHiddenId
+                        );
+                    });
+                }
+            }
+
+            input.addEventListener('input', function() {
+                render(this.value.trim());
+            });
+
+            input.addEventListener('focus', function() {
+                if (this.value.trim()) render(this.value.trim());
+            });
+
+            input.addEventListener('blur', function() {
+                setTimeout(function() { suggest.classList.remove('open'); }, 150);
+            });
+        }
+
         // ===== Init: bind all events =====
         createFloatingHearts();
         initFormSelects();
+        initNameSuggest('nameA', 'suggestA', 'deptAInput', 'deptA', 'levelAInput', 'levelA');
+        initNameSuggest('nameB', 'suggestB', 'deptBInput', 'deptB', 'levelBInput', 'levelB');
 
         // Nav links
         document.querySelectorAll('.nav-link').forEach(function(link) {
